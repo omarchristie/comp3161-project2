@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block main %}
+{% include 'flash_messages.html' %}
+<h1 class="page-header">Add Recipe</h1>
+
+  <form method='POST' action="{{ url_for('addRecipe') }}" enctype="multipart/form-data">
+    {{ form.csrf_token }}
+
+    {{ form.name.label }}
+    {{ form.name(class="form-control")}}
+    <ul>
+    {% for error in form.name.errors %}
+      <li style="color:red;">{{ error }}</li>
+    {% endfor %}
+    </ul>
+
+    {{ form.recipetype.label }}
+    {{ form.recipetype(class="form-control")}}
+    <ul>
+    {% for error in form.recipetype.errors %}
+      <li style="color:red;">{{ error }}</li>
+    {% endfor %}
+    </ul>
+    
+    {{ form.diet_type.label }}
+    {{ form.diet_type(class="form-control")}}
+    <ul>
+    {% for error in form.diet_type.errors %}
+      <li style="color:red;">{{ error }}</li>
+    {% endfor %}
+    </ul>
+
+    {{ form.serving.label }}
+    {{ form.serving(class="form-control")}}
+    <ul>
+    {% for error in form.serving.errors %}
+      <li style="color:red;">{{ error }}</li>
+    {% endfor %}
+    </ul>
+    <div>
+      <div class= 'times'>
+        {{ form.preptime.label }}
+        {{ form.preptime(class="form-control")}}
+        <ul>
+        {% for error in form.preptime.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+
+      <div class= 'times'>
+        {{ form.time.label }}
+        {{ form.time(class="form-control")}}
+        <ul>
+        {% for error in form.time.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+      
+      <div class= 'times'>
+        {{ form.caloriecount.label }}
+        {{ form.caloriecount(class="form-control")}}
+        <ul>
+        {% for error in form.caloriecount.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+    
+    <div>
+      <div class="new_unit">
+        {{ form.unit1.label }}
+        {{ form.unit1(class="form-control")}}
+        <ul>
+        {% for error in form.unit1.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+      <div class="new_ingredient">
+        {{ form.ingredient1.label }}
+        {{ form.ingredient1(class="form-control")}}
+        <ul>
+        {% for error in form.ingredient1.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="new_unit">
+        {{ form.unit2.label }}
+        {{ form.unit2(class="form-control")}}
+        <ul>
+        {% for error in form.unit2.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+      <div class="new_ingredient">
+        {{ form.ingredient2.label }}
+        {{ form.ingredient2(class="form-control")}}
+        <ul>
+        {% for error in form.ingredient2.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="new_unit">
+        {{ form.unit3.label }}
+        {{ form.unit3(class="form-control")}}
+        <ul>
+        {% for error in form.unit3.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+      <div class="new_ingredient">
+        {{ form.ingredient3.label }}
+        {{ form.ingredient3(class="form-control")}}
+        <ul>
+        {% for error in form.ingredient3.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="new_unit">
+        {{ form.unit4.label }}
+        {{ form.unit4(class="form-control")}}
+        <ul>
+        {% for error in form.unit4.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+      <div class="new_ingredient">
+        {{ form.ingredient4.label }}
+        {{ form.ingredient4(class="form-control")}}
+        <ul>
+        {% for error in form.ingredient4.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="new_unit">
+        {{ form.unit5.label }}
+        {{ form.unit5(class="form-control")}}
+        <ul>
+        {% for error in form.unit5.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+      <div class="new_ingredient">
+        {{ form.ingredient5.label }}
+        {{ form.ingredient5(class="form-control")}}
+        <ul>
+        {% for error in form.ingredient5.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+    
+    <div class= "instructions">
+      <div>
+        {{ form.instruction1.label }}
+        {{ form.instruction1(class="form-control")}}
+        <ul>
+        {% for error in form.instruction1.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+        
+      </div>
+      <div>
+        {{ form.instruction2.label }}
+        {{ form.instruction2(class="form-control")}}
+        <ul>
+        {% for error in form.instruction2.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+      <div>
+        {{ form.instruction3.label }}
+        {{ form.instruction3(class="form-control")}}
+        <ul>
+        {% for error in form.instruction3.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+       <div>
+        {{ form.instruction4.label }}
+        {{ form.instruction4(class="form-control")}}
+        <ul>
+        {% for error in form.instruction4.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+      <div>
+        {{ form.instruction5.label }}
+        {{ form.instruction5(class="form-control")}}
+        <ul>
+        {% for error in form.instruction5.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {{ form.upload.label }} {{ form.upload }}
+    <ul>
+        {% for error in form.upload.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+    
+    <button type="submit" name="submit" class="btn btn-primary btn-block">Add Recipe</button>
+  </form>
+
+{% endblock %}

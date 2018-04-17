@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+
+{% block main %}
+
+  {% include 'flash_messages.html' %}
+
+  <div class="container">
+    <h2>User: {{ user['fname'] }} {{ user['lname'] }}</h2>
+    <p>Email: {{ user['email'] }}</p>
+    <p>Date of Birth: {{ user['dob'] }}</p>
+    <p>Diet Choice: {{ user['diet_choice'] }}</p>
+    <div id="spacediv"><a class="span3" href="{{ url_for('addRecipe' ) }}"><button type="button" class="btn btn-success" >Add Recipe</button></a></div>
+  </div>
+
+{% endblock %}

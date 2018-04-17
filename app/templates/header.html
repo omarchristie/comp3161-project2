@@ -13,18 +13,24 @@
         <a class="nav-link" href="{{ url_for('about') }}">About</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="{{ url_for('secure_page') }}">Secure Page</a>
+        <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('recipes') }}">Recipies</a>
       </li>
     </ul>
 
     <ul class="navbar-nav">
-      {% if current_user.is_authenticated %}
+      {% if g.user %}
           <li class="nav-item active">
             <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
           </li>
       {% else %}
           <li class="nav-item active">
             <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('registration') }}">Sign Up</a>
           </li>
       {% endif %}
     </ul>

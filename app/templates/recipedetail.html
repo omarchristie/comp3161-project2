@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="container">
+  <h2>Online Meal Planner</h2>
+</div>
+<div class="container">
+    {% for recipe in recipes %}
+    <div class="col-lg-12">
+        <span style="text-decoration:underline;"><h2>{{recipe['recipe_name']}} Recipe</h2></span>
+    </div>
+    <br />
+    <div class="col-lg-4">
+        <h2>
+            <img src="{{url_for('static', filename='uploads/'+recipe['recipe_picture'])}}" style="max-height:200px; max-width:200px;">
+        </h2>
+    </div>
+    <div class="col-lg-8">
+        <h3>
+            Serving: {{recipe['servings']}}
+        </h3>
+        <h3>
+            Preparation Time: {{recipe['prep_time']}} minutes
+        </h3>
+        <h3>
+            Calories: {{recipe['calories']}}
+        </h3>
+        <h3>
+            Created on: {{recipe[]}}
+        </h3>
+    </div>
+    {% endfor %}
+    <h4>Instructions</h4>
+    {% for  instr in instrs%}
+        <div>{{instr['step_num']}}. {{instr['direction']}}</div>
+    
+    {% endfor %}
+</div>
+{% endblock %}

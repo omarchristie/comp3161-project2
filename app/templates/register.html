@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <div class="login-form center-block">
+    <h2>Please Sign Up</h2>
+    {% include 'flash_messages.html' %}
+    <form action="{{ url_for('registration') }}" method="post">
+      {{ form.csrf_token }}
+      
+        {{ form.illness.label }} <br /><span style="color:red"> * </span> Please enter your Illness <br /> {{ form.illness }}<br /> <br />
+        <ul>
+        {% for error in form.illness.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      
+       {{ form.firstname.label }} <br /><span style="color:red"> * </span> Please enter your fist name <br /> {{ form.firstname }}<br /> <br />
+        <ul>
+        {% for error in form.firstname.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+        
+        {{ form.lastname.label }} <br /><span style="color:red"> * </span> Please enter your last name <br /> {{ form.lastname }}<br /> <br />
+        <ul>
+        {% for error in form.lastname.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+        
+        {{ form.username.label }} <br /><span style="color:red"> * </span> Please enter your Username <br /> {{ form.username }}<br /> <br />
+        <ul>
+        {% for error in form.username.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      
+      <div class="form-group">
+        {{ form.email.label }}
+        {{ form.email(class='form-control', placeholder="Enter your email") }}
+        <ul>
+          {% for error in form.email.errors %}
+            <li style="color:red;">{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="form-group">
+        {{ form.password.label }}
+        {{ form.password(class='form-control', placeholder="Enter your password") }}
+        <ul>
+          {% for error in form.password.errors %}
+            <li style="color:red;">{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+      {{ form.diet_choice.label }} <br /><span style="color:red"> * </span> Please enter your Phone Number <br /> {{ form.diet_choice }}<br /> <br />
+        <ul>
+        {% for error in form.diet_choice.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+        
+        {{ form.dob.label }} <br /><span style="color:red"> * </span> Please enter your Date of Birth <br /> {{ form.dob }}<br /> <br />
+        <ul>
+        {% for error in form.dob.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+      
+      <button type="submit" name="submit" class="btn btn-primary btn-block">Register</button>
+    </form>
+  </div>
+{% endblock %}

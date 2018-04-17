@@ -1,3 +1,22 @@
 body {
     padding-top: 5rem;
 }
+
+.new_unit{
+        width:30%;
+        float: left;
+        clear: both;
+}
+
+.times{
+        width:30%;
+        float: left;
+}
+
+.new_ingredient{
+        width:60%;
+        float: left;
+}
+.instructions{
+    clear: left;
+}

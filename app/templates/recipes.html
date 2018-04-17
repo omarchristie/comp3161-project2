@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+  {% include 'flash_messages.html' %}
+<div class="container">
+  <h2>Online Meal Planner</h2>
+</div>
+<div class="container">
+    <span class="pull-left"><h2>Recipes</h2></span>
+    <span class="pull-right"><button class="btn btn-success btn-md"><a href="{{url_for('addRecipe')}}">Add Recipe</a></button></span>
+</div>
+<div class="container">
+    <form action="{{ url_for('recipes') }}" method="post">
+        {{ form.csrf_token }}
+        {{form.name.label}}
+        {{form.name}}
+        <ul>
+        {% for error in form.name.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+    <button type="submit" name="submit" class="btn btn-primary btn-block">Search</button>
+</form>
+</div>
+<div class="container">
+    <form class="pull-right" action="{{url_for('filteredrecipes')}}" method="post">
+    {{ form.csrf_token }}
+        {{form.calories.label}}
+        {{form.calories}}
+        <ul>
+        {% for error in form.calories.errors %}
+          <li style="color:red;">{{ error }}</li>
+        {% endfor %}
+        </ul>
+    <button type="submit" name="submit" class="btn btn-primary btn-block">Filter</button>
+    </form>
+    </div>
+<div class="container">
+<table>
+    <th> Name
+</th>
+<th>
+    Type
+</th>
+<th>
+    Serving
+</th>
+<th>
+    Preparation Time
+</th>
+<th>
+    Calorie Count
+</th>
+{% for recipe in recipes %}
+<TR>
+   <TD>{{recipe['recipe_name']}}</TD>
+   <TD>{{recipe['diet_type']}}</TD>
+   <TD>{{recipe['servings']}}</TD>
+   <TD>{{recipe['prep_time']}}</TD>
+   <td>{{recipe['calories']}}</td>
+   <td><button class="btn btn-success btn-xs"><a href="{{url_for('recipedetails', mrecipeid=recipe['id'])}}">Details</a></button></td>
+</TR>
+{% endfor %}
+</table>
+</div>
+
+{% endblock %}
