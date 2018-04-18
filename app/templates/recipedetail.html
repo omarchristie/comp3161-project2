@@ -12,7 +12,7 @@
     <br />
     <div class="col-lg-4">
         <h2>
-            <img src="{{url_for('static', filename='uploads/'+recipe['recipe_picture'])}}" style="max-height:200px; max-width:200px;">
+            <img src="{{url_for('static', filename='uploads/'+recipe['recipe_img'])}}" style="max-height:200px; max-width:200px;">
         </h2>
     </div>
     <div class="col-lg-8">
@@ -20,20 +20,31 @@
             Serving: {{recipe['servings']}}
         </h3>
         <h3>
-            Preparation Time: {{recipe['prep_time']}} minutes
+            Preparation Time: {{recipe['prep_time_amt']}} {{recipe['hour_or_mins']}}
         </h3>
         <h3>
             Calories: {{recipe['calories']}}
         </h3>
         <h3>
-            Created on: {{recipe[]}}
+            Created on: {{date[0]['creation_date']}}
+        </h3>
+        <h3>
+            Meal Type: {{recipe['recipe_type']}}
+        </h3>
+        <h3>
+            Diet Type: {{recipe['recipe_diet_type']}}
         </h3>
     </div>
     {% endfor %}
     <h4>Instructions</h4>
-    {% for  instr in instrs%}
-        <div>{{instr['step_num']}}. {{instr['direction']}}</div>
+    {% for  instruction in instructions%}
+        <div>{{instruction['direction']}}</div>
+    
+    {% endfor %}<h4>Ingredients</h4>
+    {% for  ingredient in ingredients%}
+        <div>{{ingredient['unit']}} {{ingredient['measurement']}} {{ingredient['ingredient']}}</div>
     
     {% endfor %}
+    
 </div>
 {% endblock %}

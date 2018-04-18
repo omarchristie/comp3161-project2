@@ -34,7 +34,7 @@ create table contructs(
 set @@foreign_key_checks=0;
 ALTER TABLE  `contructs` ADD CONSTRAINT `plan_id` FOREIGN KEY (`plan_id`) REFERENCES `meal_plan` (`plan_id`) ON DELETE CASCADE;
 
-create table week_plan(
+create table week_plan/*Meal_plan */( 
   plan_id int auto_increment not NULL,
   week date,
   primary key(plan_id)
@@ -45,7 +45,7 @@ create table illness(
   illness_type varchar(20),
   primary key(illness_id)
 );
-create table profile_illnesses(
+create table profile_illnesses /*has */(
   profile_id int,
   illness_id int,
   primary key(profile_id),

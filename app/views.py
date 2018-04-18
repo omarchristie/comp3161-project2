@@ -211,39 +211,33 @@ def get_ingredients():
 def recipes():
     form = RecipesForm()
     if request.method=="POST" and form.validate_on_submit():
+        name = form.name.data
         cursor = mysql.connection.cursor()
-        cursor.callproc("GetRecipesLike",[str(form.name.data)])
-        result = list(cursor.fetchall())
-
-        cursor.close()
-        mysql.connection.commit()
-        return render_template("recipes.html",form=form,recipes=result)
-    return render_template("recipes.html",form=form)
-
-@app.route('/filteredrecipes',methods=["GET","POST"])
-def filteredrecipes():
-    form = FilterForm()
-    if request.method=="POST" and form.validate_on_submit():
-        cursor = mysql.connection.cursor()
-        cursor.callproc("GetUnderSpecficCalorieCount",[str(request.form['calories'])])
+        cursor.execute('''SELECT * FROM recipes where recipe_name LIKE ''' + '"%'+name+'%"')
         result = list(cursor.fetchall())
         cursor.close()
-        mysql.connection.commit()
-        return render_template("recipes.html",form=form,recipes=result)
+        return render_template("recipes.html", form=form, recipes=result)
     return render_template("recipes.html",form=form)
     
-@app.route('/recipedetails/<recipeid>',methods=["GET"])
+@app.route('/recipedetails/<recipeid>')
 def recipedetails(recipeid):
     cursor = mysql.connection.cursor()
-    cursor.callproc("GetRecipeById",[str(recipeid)])
+    cursor.callproc("GetRecipeById",[recipeid])
     recipes = list(cursor.fetchall())
     cursor.close()
     cursor2 = mysql.connection.cursor()
-    cursor2.callproc("recipeinstruction",[str(recipeid)])
-    instr = list(cursor.fetchall())
+    cursor2.callproc("GetRecipeInstruction",[recipeid])
+    instructions = list(cursor2.fetchall())
     cursor2.close()
-    mysql.connection.commit()
-    return render_template("recipedetails.html",recipes=recipes, instrs=instr )
+    cursor3 = mysql.connection.cursor()
+    cursor3.callproc("recipeingredient",[recipeid])
+    ingredients = list(cursor3.fetchall())
+    cursor3.close()
+    cursor4 = mysql.connection.cursor()
+    cursor4.callproc("GetCreationDate",[recipeid])
+    date = list(cursor4.fetchall())
+    cursor4.close()
+    return render_template("recipedetail.html",recipes=recipes, instructions=instructions, ingredients=ingredients, date=date )
     
 @app.route('/generate_mealplan',methods=["GET"])
 def newMealPlan():
