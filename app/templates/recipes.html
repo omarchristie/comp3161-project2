@@ -4,17 +4,17 @@
 
   {% include 'flash_messages.html' %}
 <div class="container">
-  <h2>Online Meal Planner</h2>
+  <center><h2>Online Meal Planner</h2></center></br>
 </div>
 <div class="container">
-    <span class="pull-left"><h2>Recipes</h2></span>
-    <span class="pull-right"><button class="btn btn-success btn-md"><a href="{{url_for('addRecipe')}}">Add Recipe</a></button></span>
-</div>
+   <center> <span class="pull-left"><h2>Recipes</h2></span></center></br>
+   <center> <button class="btn btn-success" ><a  href="{{url_for('addRecipe')}}">Add Recipe</a></button> </center>
+</div></br>
 <div class="container">
     <form action="{{ url_for('recipes') }}" method="post">
         {{ form.csrf_token }}
-        {{form.name.label}}
-        {{form.name}}
+        {{form.name.label}}:
+        {{form.name(class='form-control')}}
         <ul>
         {% for error in form.name.errors %}
           <li style="color:red;">{{ error }}</li>
@@ -22,9 +22,9 @@
         </ul>
         <button type="submit" name="submit" class="btn btn-primary btn-block">Search</button>
     </form>
-</div>
+</div></br>
 <div class="container">
-<table>
+<table cellpadding="15" style="text-align:center;">
 <th> 
     Name
 </th>

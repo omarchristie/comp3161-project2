@@ -1,6 +1,56 @@
 {% extends "base.html" %}
 
 {% block main %}
-<h1 class="page-header">SOKK MEAL PLANNER</h1>
+<center><h1 class="page-header" style="font-family:Georgia;" style="text-align:center;">DOKK Meal Planner</h1></center>
+<br>
+<br>
+<SCRIPT LANGUAGE="JavaScript">
+<!-->hide from browsers
+//*****************************************
+//*****************************************
+
+var image1=new Image () 
+image1.src = "https://image.freepik.com/free-photo/food-background-food-concept-with-various-tasty-fresh-ingredients-for-cooking-italian-food-ingredients-view-from-above-with-copy-space_1220-1491.jpg"
+var image2=new Image () 
+image2.src = "https://o.aolcdn.com/images/dims3/GLOB/crop/5760x2880+0+480/resize/630x315!/format/jpg/quality/85/http%3A%2F%2Fo.aolcdn.com%2Fhss%2Fstorage%2Fmidas%2F1e6a11c0ceb369bee739518f2618916d%2F205881769%2Fhealth-food-for-fitness-picture-id855098134" 
+var image3=new Image () 
+image3.src = "https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2017/06/29/Pictures/_a9de93ca-5ca6-11e7-a7a5-fdf01393e65b.jpg"
+
+</SCRIPT>
+</head>
+<body>
+
+<div class="wrapper row2">
+  <div id="container" class="clear">
+   <center><img src="images/Bl.jpg" name="slide" width="950" height="500"></center>
+<script type="text/javascript">
+
+var step=1
+function slideit(){
+document.images.slide.src=eval ("image"+step+".src")
+if (step<3)
+step++
+else
+step=1
+setTimeout("slideit()",2500)
+}
+
+
+slideit()
+//-->
+</script>
+
+    <section id="shout">
+        </br></br>
+        <center><p  style="display:block; width:930px; padding:15px; font-size:16px; line-height:1.8em; background-color:#E7EFFB; color:#163C5A;">Welcome to <b>DOKK Meal Planner</b>! Find recipes and share your own recipes with others! Let us help you plan your meals!
+    	<img src="https://www.panarottis.co.za/media/1198/img-ingredients-02.png?anchor=center&mode=crop&quality=90&width=960&heightratio=0.2542372881355932203389830508&slimmage=true&rnd=130783266530000000"  width="370" height="102"  ></center></p>
+    <br>
+	</section>
+
+  </div>
+</div>
+<br>
+
+</body>
 
 {% endblock %}

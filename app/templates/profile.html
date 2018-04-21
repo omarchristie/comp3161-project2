@@ -6,12 +6,15 @@
 
   {% include 'flash_messages.html' %}
 
-  <div class="container">
-    <h2>User: {{ user['fname'] }} {{ user['lname'] }}</h2>
-    <p>Email: {{ user['email'] }}</p>
-    <p>Date of Birth: {{ user['dob'] }}</p>
-    <p>Diet Choice: {{ user['diet_choice'] }}</p>
-    <div id="spacediv"><a class="span3" href="{{ url_for('addRecipe' ) }}"><button type="button" class="btn btn-success" >Add Recipe</button></a></div>
+  <div class="container" style="display:block; width:930px; padding:15px; font-size:16px; line-height:1.8em; background-color:#E7EFFB; text-align:justify;">
+    <center><h2>{{ user['fname'] }} {{ user['lname'] }}</h2></center>
+    <center><img src="https://www.panarottis.co.za/media/1198/img-ingredients-02.png?anchor=center&mode=crop&quality=90&width=960&heightratio=0.2542372881355932203389830508&slimmage=true&rnd=130783266530000000" width="370" height="102"></center>
+    <p><b>Email:</b> {{ user['email'] }}</p>
+    <p><b>Date of Birth:</b> {{ user['dob'] }}</p>
+    <p><b>Diet Choice:</b> {{ user['diet_choice'] }}</p>
+    <p><b>Allergic Foods:</b>{{user['illness']}}</p>
+    <div id="spacediv"><a class="span3" href="{{ url_for('addRecipe' ) }}"><button type="button" class="btn btn-success" >Add Recipe</button></a></div></br>
+    <div id="spacediv"><a class="span3" href="{{ url_for('newMealPlan' ) }}"><button type="button" class="btn btn-success" >Generate Meal Plan</button></a></div>
   </div>
 
 {% endblock %}

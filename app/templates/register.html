@@ -2,33 +2,33 @@
 
 {% block main %}
   <div class="login-form center-block">
-    <h2>Please Sign Up</h2>
+   <center> <h2>Please Sign Up</h2></center>
     {% include 'flash_messages.html' %}
     <form action="{{ url_for('registration') }}" method="post">
       {{ form.csrf_token }}
       
-        {{ form.illness.label }} <br /><span style="color:red"> * </span> Please enter your Illness <br /> {{ form.illness }}<br /> <br />
+       <strong> {{ form.illness.label }}</strong> <br /><span style="color:red"> * </span> Please Choose an item you are allergic to <br /> {{ form.illness (class='form-control') }}
         <ul>
         {% for error in form.illness.errors %}
           <li style="color:red;">{{ error }}</li>
         {% endfor %}
         </ul>
       
-       {{ form.firstname.label }} <br /><span style="color:red"> * </span> Please enter your fist name <br /> {{ form.firstname }}<br /> <br />
+      <strong> {{ form.firstname.label }}</strong> <br /><span style="color:red"> * </span> Please enter your fist name <br /> {{ form.firstname (class='form-control', placeholder="Enter your firstname")}}
         <ul>
         {% for error in form.firstname.errors %}
           <li style="color:red;">{{ error }}</li>
         {% endfor %}
         </ul>
         
-        {{ form.lastname.label }} <br /><span style="color:red"> * </span> Please enter your last name <br /> {{ form.lastname }}<br /> <br />
+        <strong>{{ form.lastname.label }}</strong> <br /><span style="color:red"> * </span> Please enter your last name <br /> {{ form.lastname (class='form-control', placeholder="Enter your lastname") }}
         <ul>
         {% for error in form.lastname.errors %}
           <li style="color:red;">{{ error }}</li>
         {% endfor %}
         </ul>
         
-        {{ form.username.label }} <br /><span style="color:red"> * </span> Please enter your Username <br /> {{ form.username }}<br /> <br />
+        <strong>{{ form.username.label }}</strong> <br /><span style="color:red"> * </span> Please enter your Username <br /> {{ form.username (class='form-control', placeholder="Enter your username") }}
         <ul>
         {% for error in form.username.errors %}
           <li style="color:red;">{{ error }}</li>
@@ -36,7 +36,7 @@
         </ul>
       
       <div class="form-group">
-        {{ form.email.label }}
+        <strong>{{ form.email.label }}</strong>
         {{ form.email(class='form-control', placeholder="Enter your email") }}
         <ul>
           {% for error in form.email.errors %}
@@ -45,8 +45,10 @@
         </ul>
       </div>
       <div class="form-group">
-        {{ form.password.label }}
-        {{ form.password(class='form-control', placeholder="Enter your password") }}
+        <strong>{{ form.password.label }}</strong>
+        {{ form.password(class='form-control', placeholder="Enter your password") }}</br>
+         <strong>{{ form.passwordconfirmation.label }}</strong>
+        {{ form.passwordconfirmation(class='form-control', placeholder="Enter your password again") }}
         <ul>
           {% for error in form.password.errors %}
             <li style="color:red;">{{ error }}</li>
@@ -54,14 +56,14 @@
         </ul>
       </div>
       
-      {{ form.diet_choice.label }} <br /><span style="color:red"> * </span> Please enter your Phone Number <br /> {{ form.diet_choice }}<br /> <br />
+      <strong>{{ form.diet_choice.label }}</strong> <br /><span style="color:red"> * </span> Please enter your diet choice <br /> {{ form.diet_choice(class='form-control',placeholder="Eg: Vegan, Vegetarian,Normal") }}
         <ul>
         {% for error in form.diet_choice.errors %}
           <li style="color:red;">{{ error }}</li>
         {% endfor %}
         </ul>
         
-        {{ form.dob.label }} <br /><span style="color:red"> * </span> Please enter your Date of Birth <br /> {{ form.dob }}<br /> <br />
+        <strong>{{ form.dob.label }}</strong> <br /><span style="color:red"> * </span> Please enter your Date of Birth <br /> {{ form.dob }}
         <ul>
         {% for error in form.dob.errors %}
           <li style="color:red;">{{ error }}</li>

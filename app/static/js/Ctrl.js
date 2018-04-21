@@ -57,7 +57,7 @@ angular.module('MealPlanner').factory('Service',['$http','$q',function($http,$q)
             });
             return deferred.promise;
         },
-        getMealPlanRecipes : function(mtype){
+        getmealplanmeals : function(mtype){
             var deferred = $q.defer();
             $http.get('/getmealplanrecipes/' + mtype)
             .success(function(data){
@@ -148,42 +148,18 @@ angular.module('MealPlanner').controller('NewRecipeCtrl', ['$scope', 'Service', 
 
 
 angular.module('MealPlanner').controller('GenMealPlanCtrl', ['$scope', 'Service', function ($scope, Service){
-	
-	
-	Service.getMealPlanRecipes('Breakfast').then(function (recipes) {
-		console.log(recipes);
-		$scope.breakfasts = recipes.recipes;
-	});
 
-    Service.getMealPlanRecipes('Lunch').then(function (recipes) {
-		console.log(recipes);
-		$scope.lunches = recipes.recipes;
-	});
-	Service.getMealPlanRecipes('Dinner').then(function (recipes) {
-		console.log(recipes);
-		$scope.dinners = recipes.recipes;
-	});
-
-	$scope.ingredient= [];
-    $scope.instructions = [];
-    
 	$scope.dostuff = function(){
-	    Service.getMealPlanRecipes('Breakfast').then(function (recipes) {
-		console.log(recipes);
-		$scope.breakfasts = recipes.recipes;
+	    Service.getmealplanmeals('Breakfast').then(function (meals) {
+		$scope.breakfasts = meals.meals;
     	});
-    
-        Service.getMealPlanRecipes('Lunch').then(function (recipes) {
-    		console.log(recipes);
-    		$scope.lunches = recipes.recipes;
+        Service.getmealplanmeals('Lunch').then(function (meals) {
+    		$scope.lunches = meals.meals;
     	});
-    	Service.getMealPlanRecipes('Dinner').then(function (recipes) {
-    		console.log(recipes);
-    		$scope.dinners = recipes.recipes;
+    	Service.getmealplanmeals('Dinner').then(function (meals) {
+    		$scope.dinners = meals.meals;
     	});
 	};
-    
-    
 
 }]);
 

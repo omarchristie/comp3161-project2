@@ -8,6 +8,9 @@ DROP PROCEDURE IF EXISTS GetRecipeById;
 DROP PROCEDURE IF EXISTS GetRecipeInstruction;
 DROP PROCEDURE IF EXISTS recipeingredient;
 DROP PROCEDURE IF EXISTS GetCreationDate;
+DROP PROCEDURE IF EXISTS GetWeekmealsByType;
+DROP PROCEDURE IF EXISTS add_kitchen;
+DROP PROCEDURE IF EXISTS add_to_kitchen;
 
 DELIMITER //
 CREATE PROCEDURE Recipe(IN recipe_name varchar(300), servings int, prep_time_amt int, hour_or_mins varchar(20), recipe_type varchar(20), recipe_diet_type varchar(100), calories int, recipe_img varchar(300))
@@ -34,6 +37,12 @@ END //
 DELIMITER ;
 
 DELIMITER //
+CREATE PROCEDURE add_to_kitchen(IN kitchen_id int, ingredients_id int)
+BEGIN INSERT INTO contain(kitchen_id, ingredients_id, quantity ) VALUES(kitchen_id, ingredients_id, Null);
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE PROCEDURE add_account(IN username varchar(255), pword varchar(255))
 BEGIN INSERT INTO account(username, pword) VALUES(username, pword);
 END //
@@ -42,6 +51,12 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE Register(IN username varchar(255), fname varchar(255), lname varchar(255), dob DATE, email varchar(320), diet_choice varchar(50))
 BEGIN INSERT INTO user_profile(username, fname, lname, dob, email, diet_choice) VALUES(username, fname, lname, dob, email, diet_choice);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE add_kitchen(IN profile_id int)
+BEGIN INSERT INTO kitchen(profile_id ) VALUES(profile_id);
 END //
 DELIMITER ;
 
@@ -78,5 +93,13 @@ FROM comprise JOIN ingredients
 ON comprise.ingredients_id = ingredients.ingredients_id
 WHERE comprise.recipe_id  = recipe_id1
 );
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE GetWeekmealsByType(IN mltype varchar(20))
+BEGIN (SELECT meal_name, calories, meal_id FROM meals WHERE meal_type = mltype
+ORDER BY RAND()
+LIMIT 7);
 END //
 DELIMITER ;

@@ -20,3 +20,7 @@ body {
 .instructions{
     clear: left;
 }
+
+.error {
+    color: red
+}

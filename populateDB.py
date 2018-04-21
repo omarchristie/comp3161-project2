@@ -1,6 +1,4 @@
-#Author: Keown White
-#University of West Indies
-#April 10, 2018
+
 
 import random
 import MySQLdb
@@ -46,10 +44,10 @@ MAX = 500000
 
 
 
-file = open('meal_planner_data.sql','w') 
-file.write('use meal_planner;')
-file.write('\n')
-print("adding user accounts please wait.....")
+# file = open('meal_planner_data.sql','w') 
+# file.write('use meal_planner;')
+# file.write('\n')
+# print("adding user accounts please wait.....")
 
 username_list=[]
 profile_id_list = []
@@ -595,7 +593,7 @@ print("Successfully added meals")
 print("adding meal dependencies please wait.....")
 for created_meals in range(1, DEP+1):
 
-    loading_message = 'Meal Dep No.:'+' '+str(created_meals)
+    loading_message  = 'Meal Dep No.:'+' '+str(created_meals)
     print(loading_message)
     
     random_meal_id = random.choice(meal_list)
@@ -620,26 +618,26 @@ print("Successfully added meal dependencies")
 # file = open('meal_planner_meal_plan.sql','w') 
 # file.write('use meal_planner;')
 # file.write('\n')
-print("adding consist_of dependencies please wait.....")
-for consist_ofNo in range(1, DEP+1):
+# print("adding consist_of dependencies please wait.....")
+# for consist_ofNo in range(1, DEP+1):
 
-    loading_message = 'Consist_of Dep No.:'+' '+str(consist_ofNo)
-    print(loading_message)
+#     loading_message = 'Consist_of Dep No.:'+' '+str(consist_ofNo)
+#     print(loading_message)
     
-    random_amt=random.randint(1,4)
-    rand_meal_sample = random.sample(range(len(meal_list2)), random_amt)
+#     random_amt=random.randint(1,4)
+#     rand_meal_sample = random.sample(range(len(meal_list2)), random_amt)
 
-    for x in range(1, random_amt):
-        consist_of_table = "INSERT INTO `meal_plan`(`plan_id`, `meal_id`) VALUES ('{}','{}')".format(consist_ofNo,rand_meal_sample[x])
-        try:
-            #cursor.execute(consist_of_table)
-            file.write(consist_of_table.encode('utf8'))
-            file.write(';'.encode('utf8'))
-            file.write('\n'.encode('utf8'))
-        except:
-            pass
-print("Successfully added consist_of dependencies")
-file.close()
+#     for x in range(1, random_amt):
+#         consist_of_table = "INSERT INTO `meal_plan`(`plan_id`, `meal_id`) VALUES ('{}','{}')".format(consist_ofNo,rand_meal_sample[x])
+#         try:
+#             #cursor.execute(consist_of_table)
+#             file.write(consist_of_table.encode('utf8'))
+#             file.write(';'.encode('utf8'))
+#             file.write('\n'.encode('utf8'))
+#         except:
+#             pass
+# print("Successfully added consist_of dependencies")
+#file.close()
 
 
 

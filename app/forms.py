@@ -15,9 +15,10 @@ class RegistrationForm(FlaskForm):
     username = StringField("Username",validators=[InputRequired()])
     email = StringField('Email', validators=[InputRequired(message='Email is required'), Email(message="Only Emails")])
     password = PasswordField("Password",validators=[InputRequired()])
+    passwordconfirmation = PasswordField("Password Confirmation",validators=[InputRequired()])
     diet_choice = StringField("Diet Choice",validators=[InputRequired()])
     dob = DateField("Date Of Birth",format= '%Y-%m-%d',validators=[InputRequired()])
-    illness = SelectField('illness', choices=[], coerce=int, validators=[InputRequired()])
+    illness = SelectField('Food-Allergies', choices=[], coerce=int, validators=[InputRequired()])
     
 class RecipeForm(FlaskForm):
     name = StringField("Recipe Name",validators=[InputRequired()])
@@ -50,6 +51,8 @@ class RecipesForm(FlaskForm):
 class FilterForm(FlaskForm):
     calories = StringField("Enter caloriecount", validators=[InputRequired()])
     
+class GenPlanForm(FlaskForm):
+    calorie = StringField("Enter a calorie count")
     
     
     

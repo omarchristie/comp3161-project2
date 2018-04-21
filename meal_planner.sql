@@ -1,5 +1,4 @@
--- Name: Keown White
--- ID num: 620052848
+
 
 DROP DATABASE IF EXISTS meal_planner;
 CREATE DATABASE meal_planner;

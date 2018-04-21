@@ -15,7 +15,7 @@ import datetime
 import json
 import time
 import random
-
+from sqlalchemy.sql import text
 
 ###
 # Routing for your application.
@@ -68,11 +68,19 @@ def test():
     result = list(cur.fetchall())
     return str(result[0]['illness_id'])
 
+
+def getUsers():
+    cur =  mysql.connection.cursor()
+    cur.execute('SELECT username from account')
+    result = list(cur.fetchall())
+    return result
+
+
 @app.route('/registration/', methods=["GET", "POST"])
 def registration():
     form = RegistrationForm()
     illnesses = get_illness()
-
+    users = getUsers()
     for row in illnesses:
         illness_type = row['illness_type']
         illness_id = row['illness_id']
@@ -81,29 +89,37 @@ def registration():
         firstname = form.firstname.data
         lastname = form.lastname.data
         password = form.password.data
-        hash_password = generate_password_hash(password)
+        passconfirm = form.passwordconfirmation.data
         email = form.email.data
         username = form.username.data
+        for i in users:
+            if username == i['username']:
+                flash("That username already exists",'warning')
+                return render_template('register.html', form=form)
         dietchoice = form.diet_choice.data
         dob = form.dob.data
         illness = form.illness.data
-        cur = mysql.connection.cursor()
-        cur.callproc("add_account", [username, hash_password])
-        cur.close()
-        cur2 = mysql.connection.cursor()
-        cur2.callproc("Register", [username, firstname, lastname, dob, email, dietchoice])
-        cur2.close()
-        mysql.connection.commit()
-        firstconnection = mysql.connection.cursor()
-        firstconnection.execute('''SELECT profile_id FROM user_profile where username = ''' + '"'+username+'"')
-        uid = list(firstconnection.fetchall())
-        firstconnection.close()
-        cur3 = mysql.connection.cursor()
-        cur3.execute('INSERT into profile_illnesses (profile_id, illness_id) VALUES (%s, %s)' %(uid[0]['profile_id'], illness))                                                            
-        cur3.close()
-        mysql.connection.commit()
-        flash('Successfully added.', 'success')
-        return redirect(url_for('home'))
+        if (password == passconfirm):
+            hash_password = generate_password_hash(password)
+            cur = mysql.connection.cursor()
+            cur.callproc("add_account", [username, hash_password])
+            cur.close()
+            cur2 = mysql.connection.cursor()
+            cur2.callproc("Register", [username, firstname, lastname, dob, email, dietchoice])
+            cur2.close()
+            mysql.connection.commit()
+            firstconnection = mysql.connection.cursor()
+            firstconnection.execute('''SELECT profile_id FROM user_profile where username = ''' + '"'+username+'"')
+            uid = list(firstconnection.fetchall())
+            firstconnection.close()
+            cur3 = mysql.connection.cursor()
+            cur3.execute('INSERT into profile_illnesses (profile_id, illness_id) VALUES (%s, %s)' %(uid[0]['profile_id'], illness))                                                            
+            cur3.close()
+            mysql.connection.commit()
+            flash('Successfully added.', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('*Passwords do not match', 'warning')
     return render_template('register.html', form=form)
 
 @app.route('/profile')
@@ -235,43 +251,57 @@ def recipedetails(recipeid):
     cursor3.close()
     cursor4 = mysql.connection.cursor()
     cursor4.callproc("GetCreationDate",[recipeid])
+    date={}
     date = list(cursor4.fetchall())
+    if (date == None):
+        date=list(datetime.date(2018, 4, 16))
     cursor4.close()
-    return render_template("recipedetail.html",recipes=recipes, instructions=instructions, ingredients=ingredients, date=date )
+    return render_template("recipedetail.html",recipes=recipes, instructions=instructions, ingredients=ingredients, date = date )
     
+@app.route('/shopping_list')
+def shoppinglist():
+    return render_teplate("shoppinglist.html")
+
+
 @app.route('/generate_mealplan',methods=["GET"])
 def newMealPlan():
-    firstconnection = engine.connect()
-    result = firstconnection.execute("select mealplanday.mealplanday_id from mealplanday")
-    mealplandays = []
-    for row in result:
-        mealplandays.append(row['mealplanday_id'])
-    firstconnection.close()
-    # connection = engine.raw_connection()
-    # cursor = connection.cursor()
-    # # cursor.callproc("GetMealPlanForWeek", [random.choice(mealplandays)])
-    # cursor.close()
-    # connection.commit()
-    return render_template("mealplan.html")
+    form=RecipeForm()
+    choice=form.diet_type.data
+    firstconnection = mysql.connection.cursor()
+    firstconnection.execute('''SELECT * FROM meals WHERE meal_id IN (SELECT creates.meal_id FROM creates WHERE creates.meal_id IN(SELECT recipes.recipe_id FROM recipes WHERE recipes.recipe_diet_type = ))''') #+ '"'+choice+'"' + "))")
+    result = list(firstconnection.fetchall())
+    for i in range(0,22):
+        print(list[i])
+    return result
+    #mealplandays = []
+    #for row in result:
+    #    mealplandays.append(row['meal_id'])
+    #firstconnection.close()
+    #return render_template("mealplan.html")
     
 @app.route('/getmealplanrecipes/<mtype>', methods=["GET","POST"])
 def getmealplanrecipes(mtype):
-    form = RecipesForm(request.form)
+    form = RecipesForm()
     if request.method=="GET":
-        connection = engine.raw_connection()
-        cursor = connection.cursor()
-
+        cursor = mysql.connection.cursor()
         cursor.callproc("GetWeekRecipesByType",[str(mtype)])
-        result = cursor.fetchall()
-        print result
-
+        result = list(cursor.fetchall())
         cursor.close()
-        connection.commit()
         recipes = []
         for row in result:
             recipes.append(row)
-        print recipes
         return jsonify({"recipes":recipes})
+        
+@app.route('/meals/<meal_id>', methods=["GET"])
+def meals(meal_id):
+    connection = engine.raw_connection()
+    cursor = connection.cursor()
+    cursor.callproc("GetMealRecipe",[int(meal_id)])
+    result = cursor.fetchall()
+    recipes = []
+    for row in result:
+        recipes.append(row)
+    return jsonify({"recipes":recipes})
     
     
     
